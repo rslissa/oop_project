@@ -27,14 +27,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " +TABLE1_NAME +
-                "(nome_serra nvarchar 20 primary key,"+
-                "zona nvarchar 20 not null,m2 int not null, " +
-                "coltura nvarchar 20 not null," +
-                "varieta nvarchar 20 not null," +
+                "(nome_serra varchar(20) primary key,"+
+                "zona varchar(20) not null,"+
+                "m2 int not null, " +
+                "coltura varchar(20) not null," +
+                "varieta varchar(20) not null," +
                 "piante_m2 int not null," +
                 "data_trapianto date not null," +
-                "litri_ora_entrata float 20 not null," +
-                "litri_ora_sgrondo float 20 not null," +
+                "litri_ora_entrata real  not null," +
+                "litri_ora_sgrondo real not null," +
                 "target_ec int not null)"
         );
     }
