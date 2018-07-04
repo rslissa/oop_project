@@ -9,16 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "GestionaleDB.db";
     public static final String TABLE1_NAME = "t_serra";
-    public static final String COL_SERRA_1 = "nome_serra";
-    public static final String COL_SERRA_2 = "zona";
-    public static final String COL_SERRA_3 = "m2";
-    public static final String COL_SERRA_4 = "coltura";
-    public static final String COL_SERRA_5 = "varieta";
-    public static final String COL_SERRA_6 = "piante_m2";
-    public static final String COL_SERRA_7 = "data_trapianto";
-    public static final String COL_SERRA_8 = "litri_ora_entrata";
-    public static final String COL_SERRA_9 = "litri_ora_sgrondo";
-    public static final String COL_SERRA_10 = "target_ec";
+    public static final String TABLE2_NAME = "sgrondo";
+
 
     public DatabaseHelper(Context context) {
         super (context, DATABASE_NAME, null, 1);
@@ -39,11 +31,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "litri_ora_sgrondo real not null," +
                 "target_ec int not null)"
         );
+        db.execSQL(     "create table " +TABLE2_NAME +
+                        "(nome_serra varchar(20) not null,"+
+                        "data date not null,"+
+                        "acqua_entrata int not null, " +
+                        "EC_acqua_entrata int not null," +
+                        "acqua_sgrondo int not null," +
+                        "EC_acqua_sgrondo int not null," +
+                        "primary key(nome_serra,data)," +
+                        "foreign key(nome_serra) references serra)"
+        );
+
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+TABLE1_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+TABLE2_NAME);
         onCreate(db);
     }
 }
